@@ -2,11 +2,11 @@
 
 Aggregated VLESS / v2ray subscription, auto-rebuilt every 12 hours. Every endpoint is TCP-probed for liveness + latency on each rebuild.
 
-**Last update (UTC):** 2026-05-28 15:13:11
+**Last update (UTC):** 2026-05-28 15:45:57
 
-**Configs:** 500 top / 40628 live / 77584 total
+**Configs:** 500 top / 41270 live / 77597 total
 
-**Latency (all live):** median 70 ms · p95 193 ms
+**Latency (all live):** median 66 ms · p95 194 ms
 
 **Top 500 cutoff:** 10 ms
 
@@ -24,13 +24,13 @@ Plain:
 https://raw.githubusercontent.com/flashluckai-glitch/LIMA-vpn/main/top500.txt
 ```
 
-## Subscribe — All live (40628)
+## Subscribe — All live (41270)
 
 ```
 https://raw.githubusercontent.com/flashluckai-glitch/LIMA-vpn/main/sub_base64.txt
 ```
 
-## Subscribe — Unfiltered backup (77584)
+## Subscribe — Unfiltered backup (77597)
 
 ```
 https://raw.githubusercontent.com/flashluckai-glitch/LIMA-vpn/main/sub_all_base64.txt
@@ -38,10 +38,10 @@ https://raw.githubusercontent.com/flashluckai-glitch/LIMA-vpn/main/sub_all_base6
 
 ## Protocols (in top 500)
 
-- `vless`: 475
-- `ss`: 10
-- `trojan`: 9
-- `vmess`: 6
+- `vless`: 472
+- `ss`: 12
+- `trojan`: 12
+- `vmess`: 4
 
 ## Sources (67)
 
@@ -49,11 +49,11 @@ https://raw.githubusercontent.com/flashluckai-glitch/LIMA-vpn/main/sub_all_base6
 |---|---:|---|
 | igareck/BLACK_VLESS_RUS | 71 | ok (+71 new) |
 | igareck/BLACK_VLESS_RUS_mobile | 83 | ok (+14 new) |
-| igareck/Vless-Reality-WL-Mobile | 15 | ok (+15 new) |
+| igareck/Vless-Reality-WL-Mobile | 22 | ok (+22 new) |
 | igareck/Vless-Reality-WL-Mobile-2 | 0 | ok (+0 new) |
 | igareck/BLACK_SS+All_RUS | 14 | ok (+0 new) |
-| AvenCores/1 | 9362 | ok (+9348 new) |
-| AvenCores/2 | 73379 | ok (+50231 new) |
+| AvenCores/1 | 9362 | ok (+9351 new) |
+| AvenCores/2 | 73379 | ok (+50232 new) |
 | AvenCores/3 | 8627 | ok (+5818 new) |
 | AvenCores/4 | 227 | ok (+81 new) |
 | AvenCores/5 | 958 | ok (+112 new) |
@@ -77,8 +77,8 @@ https://raw.githubusercontent.com/flashluckai-glitch/LIMA-vpn/main/sub_all_base6
 | AvenCores/23 | 46 | ok (+17 new) |
 | AvenCores/24 | 1112 | ok (+659 new) |
 | AvenCores/25 | 146 | ok (+1 new) |
-| AvenCores/26 | 2161 | ok (+1125 new) |
-| hiztin/sub | 4297 | ok (+1320 new) |
+| AvenCores/26 | 2161 | ok (+1123 new) |
+| hiztin/sub | 4297 | ok (+1321 new) |
 | FLAT447/blacklist | 0 | ok (+0 new) |
 | FLAT447/whitelist | 0 | ok (+0 new) |
 | FLAT447/mirror-1 | 4990 | ok (+0 new) |
@@ -106,11 +106,11 @@ https://raw.githubusercontent.com/flashluckai-glitch/LIMA-vpn/main/sub_all_base6
 | FLAT447/mirror-23 | 56 | ok (+0 new) |
 | FLAT447/mirror-24 | 425 | ok (+0 new) |
 | FLAT447/mirror-25 | 90 | ok (+0 new) |
-| FLAT447/mirror-26 | 1087 | ok (+46 new) |
+| FLAT447/mirror-26 | 1087 | ok (+47 new) |
 | luxxuria/ping_tested | 241 | ok (+219 new) |
 | luxxuria/speed_tested | 49 | ok (+0 new) |
 | luxxuria/top_600 | 49 | ok (+0 new) |
 | luxxuria/non_ru | 49 | ok (+0 new) |
 | VAL41K/obhod_BL | 645 | ok (+344 new) |
 | VAL41K/obhod_WL | 2695 | ok (+841 new) |
-| lm705/vless_alive | 21 | ok (+1 new) |
+| lm705/vless_alive | 35 | ok (+3 new) |

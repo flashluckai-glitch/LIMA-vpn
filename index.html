@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>LIMA VPN — Aggregated subscription</title>
+<meta name="description" content="Aggregated VLESS / v2ray subscription. Auto-rebuilt every 12 hours with live TCP probing.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔐</text></svg>">
+<script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  :root{
+    --bg:#070a12;
+    --bg-grad-1:#0b1027;
+    --bg-grad-2:#080510;
+    --card:rgba(20,24,38,0.7);
+    --card-border:rgba(120,140,200,0.12);
+    --fg:#e6e9f2;
+    --muted:#8089a3;
+    --accent:#5eead4;
+    --accent-2:#a78bfa;
+    --good:#86efac;
+    --warn:#fbbf24;
+    --bad:#f87171;
+    --mono:'JetBrains Mono','SF Mono',ui-monospace,Menlo,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;
+  }
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--fg);font-family:var(--sans);min-height:100vh;-webkit-font-smoothing:antialiased}
+  body{
+    background:
+      radial-gradient(1200px 600px at 80% -10%,rgba(94,234,212,0.08),transparent 70%),
+      radial-gradient(1000px 500px at -10% 30%,rgba(167,139,250,0.10),transparent 70%),
+      linear-gradient(180deg,var(--bg-grad-1),var(--bg-grad-2));
+    background-attachment:fixed;
+  }
+  main{max-width:880px;margin:0 auto;padding:48px 22px 80px}
+  header{margin-bottom:48px;text-align:center}
+  h1{
+    font-size:clamp(48px,9vw,84px);
+    font-weight:800;
+    letter-spacing:-0.04em;
+    margin:0 0 6px;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .tagline{color:var(--muted);font-size:15px;margin:0 0 10px}
+  .updated{color:var(--muted);font-size:13px;margin:0;font-family:var(--mono)}
+  .updated time{color:var(--accent)}
+
+  .stats{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:32px 0 12px;
+  }
+  .stat{
+    background:var(--card);border:1px solid var(--card-border);
+    border-radius:16px;padding:20px 14px;text-align:center;
+    backdrop-filter:blur(10px);
+  }
+  .stat b{display:block;font-size:clamp(24px,5vw,34px);font-weight:700;font-family:var(--mono);color:var(--fg);letter-spacing:-0.02em}
+  .stat span{display:block;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:0.08em;margin-top:4px}
+
+  .latency-line{text-align:center;color:var(--muted);font-size:13px;font-family:var(--mono);margin:0 0 36px}
+  .latency-line b{color:var(--accent)}
+
+  .subs{display:flex;flex-direction:column;gap:16px;margin-bottom:40px}
+  .sub{
+    background:var(--card);border:1px solid var(--card-border);
+    border-radius:18px;padding:22px;backdrop-filter:blur(10px);
+    transition:border-color .2s;
+  }
+  .sub:hover{border-color:rgba(120,140,200,0.25)}
+  .sub.featured{
+    border-color:rgba(94,234,212,0.35);
+    background:linear-gradient(180deg,rgba(94,234,212,0.06),var(--card));
+  }
+  .sub-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+  .sub h2{font-size:18px;font-weight:600;margin:0;letter-spacing:-0.01em}
+  .badge{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;padding:3px 8px;border-radius:999px;background:rgba(94,234,212,0.15);color:var(--accent);font-weight:600}
+  .sub p.desc{color:var(--muted);font-size:13px;margin:0 0 14px}
+  .url-box{
+    display:flex;align-items:center;gap:0;
+    background:rgba(0,0,0,0.35);border:1px solid var(--card-border);
+    border-radius:10px;padding:10px 12px;font-family:var(--mono);font-size:12.5px;
+    overflow-x:auto;white-space:nowrap;
+  }
+  .url-box code{color:var(--fg);background:none}
+  .actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+  button{
+    appearance:none;cursor:pointer;font:inherit;
+    background:rgba(255,255,255,0.06);border:1px solid var(--card-border);
+    color:var(--fg);padding:8px 14px;border-radius:10px;font-size:13px;
+    transition:background .15s,border-color .15s;
+  }
+  button:hover{background:rgba(255,255,255,0.10);border-color:rgba(120,140,200,0.3)}
+  button.primary{background:rgba(94,234,212,0.18);border-color:rgba(94,234,212,0.4);color:var(--accent)}
+  button.primary:hover{background:rgba(94,234,212,0.26)}
+  .qr-wrap{display:none;margin-top:14px;padding:14px;background:#fff;border-radius:12px;width:fit-content}
+  .qr-wrap.show{display:block}
+  .qr-wrap canvas{display:block}
+
+  .preview{
+    margin-bottom:40px;background:var(--card);border:1px solid var(--card-border);
+    border-radius:18px;padding:22px;backdrop-filter:blur(10px);
+  }
+  .preview h2{font-size:15px;font-weight:600;margin:0 0 14px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em}
+  .preview ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+  .preview li{font-family:var(--mono);font-size:13px;color:var(--fg);padding:6px 10px;background:rgba(0,0,0,0.25);border-radius:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .preview li::before{content:attr(data-i);color:var(--muted);margin-right:10px;font-size:11px}
+
+  details.sources{background:var(--card);border:1px solid var(--card-border);border-radius:18px;padding:18px 22px;backdrop-filter:blur(10px)}
+  details.sources summary{cursor:pointer;font-size:15px;font-weight:600;list-style:none;display:flex;align-items:center;justify-content:space-between;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em}
+  details.sources summary::after{content:'+';font-size:18px;font-weight:400}
+  details.sources[open] summary::after{content:'−'}
+  details.sources table{width:100%;border-collapse:collapse;margin-top:14px;font-size:13px;font-family:var(--mono)}
+  details.sources td{padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.04)}
+  details.sources td:nth-child(2){text-align:right;color:var(--accent);padding-right:14px}
+  details.sources td:nth-child(3){text-align:right;color:var(--good);font-size:11px;text-transform:uppercase}
+  details.sources td.fail{color:var(--bad)}
+
+  footer{margin-top:40px;text-align:center;color:var(--muted);font-size:12px}
+  footer a{color:var(--accent);text-decoration:none}
+  footer a:hover{text-decoration:underline}
+
+  .toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:rgba(94,234,212,0.95);color:#0b1027;padding:10px 18px;border-radius:999px;
+    font-weight:600;font-size:13px;opacity:0;transition:all .25s;pointer-events:none;
+    box-shadow:0 8px 32px rgba(94,234,212,0.25);
+  }
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  @media(max-width:520px){
+    main{padding:32px 16px 60px}
+    .stats{gap:8px}
+    .stat{padding:14px 8px}
+  }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>LIMA VPN</h1>
+    <p class="tagline">Агрегатор VLESS / v2ray подписок · автообновление каждые 12 часов</p>
+    <p class="updated">Обновлено: <time datetime="2026-05-28T15:45:57Z">2026-05-28 15:45 UTC</time></p>
+  </header>
+
+  <section class="stats">
+    <div class="stat"><b>500</b><span>Top fastest</span></div>
+    <div class="stat"><b>41 270</b><span>Live</span></div>
+    <div class="stat"><b>77 597</b><span>Total</span></div>
+  </section>
+  <p class="latency-line">Латентность по живым: median <b>66 ms</b> · p95 <b>194 ms</b> · top отсечка <b>≤10 ms</b></p>
+
+  <section class="subs">
+    <article class="sub featured" data-url="https://vpn.lima-xdt.art/top500_base64.txt">
+      <div class="sub-head">
+        <h2>TOP 500 — Быстрейшие</h2>
+        <span class="badge">Рекомендую</span>
+      </div>
+      <p class="desc">500 серверов с самым низким TCP-пингом. Уникальные endpoints, отсортированы по скорости.</p>
+      <div class="url-box"><code>https://vpn.lima-xdt.art/top500_base64.txt</code></div>
+      <div class="actions">
+        <button class="primary copy">Скопировать</button>
+        <button class="qr">QR-код</button>
+      </div>
+      <div class="qr-wrap"></div>
+    </article>
+
+    <article class="sub" data-url="https://vpn.lima-xdt.art/sub_base64.txt">
+      <div class="sub-head"><h2>Все живые (41 270)</h2></div>
+      <p class="desc">Все серверы, которые прошли TCP-проверку. Большая подписка — может тормозить в мобильных клиентах.</p>
+      <div class="url-box"><code>https://vpn.lima-xdt.art/sub_base64.txt</code></div>
+      <div class="actions">
+        <button class="copy">Скопировать</button>
+        <button class="qr">QR-код</button>
+      </div>
+      <div class="qr-wrap"></div>
+    </article>
+
+    <article class="sub" data-url="https://vpn.lima-xdt.art/sub_all_base64.txt">
+      <div class="sub-head"><h2>Бэкап — все (77 597)</h2></div>
+      <p class="desc">Полный нефильтрованный список из всех источников. На крайний случай.</p>
+      <div class="url-box"><code>https://vpn.lima-xdt.art/sub_all_base64.txt</code></div>
+      <div class="actions">
+        <button class="copy">Скопировать</button>
+        <button class="qr">QR-код</button>
+      </div>
+      <div class="qr-wrap"></div>
+    </article>
+  </section>
+
+  <section class="preview">
+    <h2>Топ-5 быстрейших сейчас</h2>
+    <ol><li data-i="01.">LIMA-001 🇨🇦 CA · Montreal · 8ms</li><li data-i="02.">LIMA-002 🇨🇦 CA · Montreal · 8ms</li><li data-i="03.">LIMA-003 🇨🇦 CA · Montreal · 8ms</li><li data-i="04.">LIMA-004 🇳🇱 NL · Amsterdam · 8ms</li><li data-i="05.">LIMA-005 🇰🇿 KZ · Almaty · 8ms</li></ol>
+  </section>
+
+  <details class="sources">
+    <summary>Источники (67)</summary>
+    <table><tr><td>igareck/BLACK_VLESS_RUS</td><td>71</td><td class="fail">ok (+71 new)</td></tr><tr><td>igareck/BLACK_VLESS_RUS_mobile</td><td>83</td><td class="fail">ok (+14 new)</td></tr><tr><td>igareck/Vless-Reality-WL-Mobile</td><td>22</td><td class="fail">ok (+22 new)</td></tr><tr><td>igareck/Vless-Reality-WL-Mobile-2</td><td>0</td><td class="fail">ok (+0 new)</td></tr><tr><td>igareck/BLACK_SS+All_RUS</td><td>14</td><td class="fail">ok (+0 new)</td></tr><tr><td>AvenCores/1</td><td>9 362</td><td class="fail">ok (+9351 new)</td></tr><tr><td>AvenCores/2</td><td>73 379</td><td class="fail">ok (+50232 new)</td></tr><tr><td>AvenCores/3</td><td>8 627</td><td class="fail">ok (+5818 new)</td></tr><tr><td>AvenCores/4</td><td>227</td><td class="fail">ok (+81 new)</td></tr><tr><td>AvenCores/5</td><td>958</td><td class="fail">ok (+112 new)</td></tr><tr><td>AvenCores/6</td><td>145</td><td class="fail">ok (+63 new)</td></tr><tr><td>AvenCores/7</td><td>246</td><td class="fail">ok (+182 new)</td></tr><tr><td>AvenCores/8</td><td>321</td><td class="fail">ok (+311 new)</td></tr><tr><td>AvenCores/9</td><td>293</td><td class="fail">ok (+1 new)</td></tr><tr><td>AvenCores/10</td><td>4 639</td><td class="fail">ok (+117 new)</td></tr><tr><td>AvenCores/11</td><td>591</td><td class="fail">ok (+393 new)</td></tr><tr><td>AvenCores/12</td><td>2 960</td><td class="fail">ok (+1275 new)</td></tr><tr><td>AvenCores/13</td><td>74</td><td class="fail">ok (+10 new)</td></tr><tr><td>AvenCores/14</td><td>819</td><td class="fail">ok (+150 new)</td></tr><tr><td>AvenCores/15</td><td>235</td><td class="fail">ok (+17 new)</td></tr><tr><td>AvenCores/16</td><td>10</td><td class="fail">ok (+0 new)</td></tr><tr><td>AvenCores/17</td><td>937</td><td class="fail">ok (+2 new)</td></tr><tr><td>AvenCores/18</td><td>426</td><td class="fail">ok (+416 new)</td></tr><tr><td>AvenCores/19</td><td>1 126</td><td class="fail">ok (+750 new)</td></tr><tr><td>AvenCores/20</td><td>1 914</td><td class="fail">ok (+1280 new)</td></tr><tr><td>AvenCores/21</td><td>1 298</td><td class="fail">ok (+953 new)</td></tr><tr><td>AvenCores/22</td><td>214</td><td class="fail">ok (+55 new)</td></tr><tr><td>AvenCores/23</td><td>46</td><td class="fail">ok (+17 new)</td></tr><tr><td>AvenCores/24</td><td>1 112</td><td class="fail">ok (+659 new)</td></tr><tr><td>AvenCores/25</td><td>146</td><td class="fail">ok (+1 new)</td></tr><tr><td>AvenCores/26</td><td>2 161</td><td class="fail">ok (+1123 new)</td></tr><tr><td>hiztin/sub</td><td>4 297</td><td class="fail">ok (+1321 new)</td></tr><tr><td>FLAT447/blacklist</td><td>0</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/whitelist</td><td>0</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-1</td><td>4 990</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-2</td><td>2 269</td><td class="fail">ok (+490 new)</td></tr><tr><td>FLAT447/mirror-3</td><td>4 137</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-4</td><td>209</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-5</td><td>624</td><td class="fail">ok (+3 new)</td></tr><tr><td>FLAT447/mirror-6</td><td>17</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-7</td><td>156</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-8</td><td>195</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-9</td><td>214</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-10</td><td>3 056</td><td class="fail">ok (+17 new)</td></tr><tr><td>FLAT447/mirror-11</td><td>570</td><td class="fail">ok (+40 new)</td></tr><tr><td>FLAT447/mirror-12</td><td>1 868</td><td class="fail">ok (+645 new)</td></tr><tr><td>FLAT447/mirror-13</td><td>1 109</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-14</td><td>726</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-15</td><td>141</td><td class="fail">ok (+29 new)</td></tr><tr><td>FLAT447/mirror-16</td><td>12</td><td class="fail">ok (+8 new)</td></tr><tr><td>FLAT447/mirror-17</td><td>170</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-18</td><td>3</td><td class="fail">ok (+2 new)</td></tr><tr><td>FLAT447/mirror-19</td><td>61</td><td class="fail">ok (+60 new)</td></tr><tr><td>FLAT447/mirror-20</td><td>1 343</td><td class="fail">ok (+21 new)</td></tr><tr><td>FLAT447/mirror-21</td><td>560</td><td class="fail">ok (+28 new)</td></tr><tr><td>FLAT447/mirror-22</td><td>4</td><td class="fail">ok (+3 new)</td></tr><tr><td>FLAT447/mirror-23</td><td>56</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-24</td><td>425</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-25</td><td>90</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-26</td><td>1 087</td><td class="fail">ok (+47 new)</td></tr><tr><td>luxxuria/ping_tested</td><td>241</td><td class="fail">ok (+219 new)</td></tr><tr><td>luxxuria/speed_tested</td><td>49</td><td class="fail">ok (+0 new)</td></tr><tr><td>luxxuria/top_600</td><td>49</td><td class="fail">ok (+0 new)</td></tr><tr><td>luxxuria/non_ru</td><td>49</td><td class="fail">ok (+0 new)</td></tr><tr><td>VAL41K/obhod_BL</td><td>645</td><td class="fail">ok (+344 new)</td></tr><tr><td>VAL41K/obhod_WL</td><td>2 695</td><td class="fail">ok (+841 new)</td></tr><tr><td>lm705/vless_alive</td><td>35</td><td class="fail">ok (+3 new)</td></tr></table>
+  </details>
+
+  <footer>
+    <a href="https://github.com/flashluckai-glitch/LIMA-vpn">GitHub репозиторий</a>
+  </footer>
+</main>
+
+<div class="toast" id="toast">Скопировано</div>
+
+<script>
+  const toast = document.getElementById('toast');
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(()=>toast.classList.remove('show'), 1600);
+  }
+  document.querySelectorAll('.sub').forEach(card => {
+    const url = card.dataset.url;
+    const copyBtn = card.querySelector('.copy');
+    const qrBtn = card.querySelector('.qr');
+    const qrWrap = card.querySelector('.qr-wrap');
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(url);
+        showToast('Скопировано');
+      } catch (e) {
+        showToast('Не удалось скопировать');
+      }
+    });
+    qrBtn.addEventListener('click', () => {
+      if (qrWrap.classList.contains('show')) {
+        qrWrap.classList.remove('show');
+        qrBtn.textContent = 'QR-код';
+        return;
+      }
+      if (!qrWrap.dataset.rendered) {
+        const c = document.createElement('canvas');
+        qrWrap.appendChild(c);
+        new QRious({ element: c, value: url, size: 220, level: 'M' });
+        qrWrap.dataset.rendered = '1';
+      }
+      qrWrap.classList.add('show');
+      qrBtn.textContent = 'Скрыть QR';
+    });
+  });
+</script>
+</body>
+</html>
