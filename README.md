@@ -1,35 +1,40 @@
 # LIMA VPN
 
-Aggregated VLESS / v2ray subscription, auto-rebuilt every 12 hours.
+Aggregated VLESS / v2ray subscription, auto-rebuilt every 12 hours. Each rebuild **TCP-probes every endpoint** and the primary subscription contains only servers whose port responded.
 
-**Last update (UTC):** 2026-05-28 14:54:31
+**Last update (UTC):** 2026-05-28 15:00:29
 
-**Total unique configs:** 77584
+**Live configs:** 40314 (of 77584 aggregated)
 
-## Subscribe
+## Subscribe (live-filtered — recommended)
 
-Plain text (use in v2rayN / Hiddify / Streisand / NekoBox):
-
-```
-https://raw.githubusercontent.com/flashluckai-glitch/LIMA-vpn/main/sub.txt
-```
-
-Base64 (standard subscription format, works with most clients):
+Base64 (standard, works in most clients):
 
 ```
 https://raw.githubusercontent.com/flashluckai-glitch/LIMA-vpn/main/sub_base64.txt
 ```
 
-## Protocols
+Plain text:
 
-- `vless`: 64031
-- `trojan`: 7165
-- `ss`: 3337
-- `vmess`: 2823
-- `hysteria2`: 121
-- `tuic`: 82
-- `ssr`: 23
-- `hy2`: 2
+```
+https://raw.githubusercontent.com/flashluckai-glitch/LIMA-vpn/main/sub.txt
+```
+
+## Subscribe (full unfiltered backup)
+
+```
+https://raw.githubusercontent.com/flashluckai-glitch/LIMA-vpn/main/sub_all_base64.txt
+```
+
+## Protocols (live)
+
+- `vless`: 31866
+- `trojan`: 5895
+- `ss`: 1342
+- `vmess`: 1195
+- `hysteria2`: 11
+- `tuic`: 4
+- `ssr`: 1
 
 ## Sources (67)
 
