@@ -2,13 +2,13 @@
 
 Aggregated VLESS / v2ray subscription, auto-rebuilt every 12 hours. Every endpoint is TCP-probed for liveness + latency on each rebuild.
 
-**Last update (UTC):** 2026-05-28 15:05:24
+**Last update (UTC):** 2026-05-28 15:13:11
 
-**Configs:** 500 top / 40894 live / 77584 total
+**Configs:** 500 top / 40628 live / 77584 total
 
-**Latency (all live):** median 62 ms · p95 194 ms
+**Latency (all live):** median 70 ms · p95 193 ms
 
-**Top 500 cutoff:** 11 ms
+**Top 500 cutoff:** 10 ms
 
 ## Subscribe — Top 500 fastest (recommended)
 
@@ -24,7 +24,7 @@ Plain:
 https://raw.githubusercontent.com/flashluckai-glitch/LIMA-vpn/main/top500.txt
 ```
 
-## Subscribe — All live (40894)
+## Subscribe — All live (40628)
 
 ```
 https://raw.githubusercontent.com/flashluckai-glitch/LIMA-vpn/main/sub_base64.txt
@@ -38,10 +38,10 @@ https://raw.githubusercontent.com/flashluckai-glitch/LIMA-vpn/main/sub_all_base6
 
 ## Protocols (in top 500)
 
-- `vless`: 468
-- `trojan`: 16
-- `ss`: 13
-- `vmess`: 3
+- `vless`: 475
+- `ss`: 10
+- `trojan`: 9
+- `vmess`: 6
 
 ## Sources (67)
 
