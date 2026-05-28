@@ -1,40 +1,47 @@
 # LIMA VPN
 
-Aggregated VLESS / v2ray subscription, auto-rebuilt every 12 hours. Each rebuild **TCP-probes every endpoint** and the primary subscription contains only servers whose port responded.
+Aggregated VLESS / v2ray subscription, auto-rebuilt every 12 hours. Every endpoint is TCP-probed for liveness + latency on each rebuild.
 
-**Last update (UTC):** 2026-05-28 15:00:29
+**Last update (UTC):** 2026-05-28 15:05:24
 
-**Live configs:** 40314 (of 77584 aggregated)
+**Configs:** 500 top / 40894 live / 77584 total
 
-## Subscribe (live-filtered — recommended)
+**Latency (all live):** median 62 ms · p95 194 ms
 
-Base64 (standard, works in most clients):
+**Top 500 cutoff:** 11 ms
+
+## Subscribe — Top 500 fastest (recommended)
+
+Base64:
+
+```
+https://raw.githubusercontent.com/flashluckai-glitch/LIMA-vpn/main/top500_base64.txt
+```
+
+Plain:
+
+```
+https://raw.githubusercontent.com/flashluckai-glitch/LIMA-vpn/main/top500.txt
+```
+
+## Subscribe — All live (40894)
 
 ```
 https://raw.githubusercontent.com/flashluckai-glitch/LIMA-vpn/main/sub_base64.txt
 ```
 
-Plain text:
-
-```
-https://raw.githubusercontent.com/flashluckai-glitch/LIMA-vpn/main/sub.txt
-```
-
-## Subscribe (full unfiltered backup)
+## Subscribe — Unfiltered backup (77584)
 
 ```
 https://raw.githubusercontent.com/flashluckai-glitch/LIMA-vpn/main/sub_all_base64.txt
 ```
 
-## Protocols (live)
+## Protocols (in top 500)
 
-- `vless`: 31866
-- `trojan`: 5895
-- `ss`: 1342
-- `vmess`: 1195
-- `hysteria2`: 11
-- `tuic`: 4
-- `ssr`: 1
+- `vless`: 468
+- `trojan`: 16
+- `ss`: 13
+- `vmess`: 3
 
 ## Sources (67)
 
