@@ -2,7 +2,7 @@
 
 Aggregated VLESS / v2ray subscription, auto-rebuilt every 12 hours. Top tiers are filtered by real HTTP test through each proxy (xray-knife → `https://www.google.com/generate_204`), so every entry is verified to actually carry traffic.
 
-**Last update (UTC):** 2026-05-28 19:27:41
+**Last update (UTC):** 2026-05-28 19:45:02
 
 **Configs:** 500 top500 / 2000 top2000 / 42328 TCP-live / 78116 total
 
