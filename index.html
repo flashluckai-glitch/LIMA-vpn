@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="dark">
 <title>LIMA VPN — Aggregated subscription</title>
-<meta name="description" content="Aggregated VLESS / v2ray subscription. Auto-rebuilt every 12 hours with live TCP probing.">
+<meta name="description" content="Aggregated VLESS / v2ray subscription. Top tier filtered by real HTTP test through each proxy (xray-knife) so every server is verified to carry traffic.">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔐</text></svg>">
 <script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
 <style>
@@ -141,23 +141,23 @@
   <header>
     <h1>LIMA VPN</h1>
     <p class="tagline">Агрегатор VLESS / v2ray подписок · автообновление каждые 12 часов</p>
-    <p class="updated">Обновлено: <time datetime="2026-05-28T15:45:57Z">2026-05-28 15:45 UTC</time></p>
+    <p class="updated">Обновлено: <time datetime="2026-05-28T18:50:50Z">2026-05-28 18:50 UTC</time></p>
   </header>
 
   <section class="stats">
-    <div class="stat"><b>500</b><span>Top fastest</span></div>
-    <div class="stat"><b>41 270</b><span>Live</span></div>
-    <div class="stat"><b>77 597</b><span>Total</span></div>
+    <div class="stat"><b>500</b><span>Рабочие (top)</span></div>
+    <div class="stat"><b>40 833</b><span>TCP-открыто</span></div>
+    <div class="stat"><b>78 097</b><span>Всего</span></div>
   </section>
-  <p class="latency-line">Латентность по живым: median <b>66 ms</b> · p95 <b>194 ms</b> · top отсечка <b>≤10 ms</b></p>
+  <p class="latency-line">Реальный HTTP-пинг (рабочие): median <b>569 ms</b> · p95 <b>3081 ms</b> · top отсечка <b>≤286 ms</b></p>
 
   <section class="subs">
     <article class="sub featured" data-url="https://vpn.lima-xdt.art/top500_base64.txt">
       <div class="sub-head">
-        <h2>TOP 500 — Быстрейшие</h2>
+        <h2>TOP 500 — Реально рабочие</h2>
         <span class="badge">Рекомендую</span>
       </div>
-      <p class="desc">500 серверов с самым низким TCP-пингом. Уникальные endpoints, отсортированы по скорости.</p>
+      <p class="desc">Каждый сервер проверен HTTP-тестом через сам прокси (xray-knife). Гарантированно таскают трафик. Отсортированы по реальному пингу.</p>
       <div class="url-box"><code>https://vpn.lima-xdt.art/top500_base64.txt</code></div>
       <div class="actions">
         <button class="primary copy">Скопировать</button>
@@ -167,8 +167,8 @@
     </article>
 
     <article class="sub" data-url="https://vpn.lima-xdt.art/sub_base64.txt">
-      <div class="sub-head"><h2>Все живые (41 270)</h2></div>
-      <p class="desc">Все серверы, которые прошли TCP-проверку. Большая подписка — может тормозить в мобильных клиентах.</p>
+      <div class="sub-head"><h2>TCP-открытые (40 833)</h2></div>
+      <p class="desc">Серверы, у которых порт отвечает на TCP. Большинство не работают как прокси (плохой UUID, мёртвый сервис, неверный SNI). Скорее справочно.</p>
       <div class="url-box"><code>https://vpn.lima-xdt.art/sub_base64.txt</code></div>
       <div class="actions">
         <button class="copy">Скопировать</button>
@@ -178,7 +178,7 @@
     </article>
 
     <article class="sub" data-url="https://vpn.lima-xdt.art/sub_all_base64.txt">
-      <div class="sub-head"><h2>Бэкап — все (77 597)</h2></div>
+      <div class="sub-head"><h2>Бэкап — все (78 097)</h2></div>
       <p class="desc">Полный нефильтрованный список из всех источников. На крайний случай.</p>
       <div class="url-box"><code>https://vpn.lima-xdt.art/sub_all_base64.txt</code></div>
       <div class="actions">
@@ -190,13 +190,13 @@
   </section>
 
   <section class="preview">
-    <h2>Топ-5 быстрейших сейчас</h2>
-    <ol><li data-i="01.">LIMA-001 🇨🇦 CA · Montreal · 8ms</li><li data-i="02.">LIMA-002 🇨🇦 CA · Montreal · 8ms</li><li data-i="03.">LIMA-003 🇨🇦 CA · Montreal · 8ms</li><li data-i="04.">LIMA-004 🇳🇱 NL · Amsterdam · 8ms</li><li data-i="05.">LIMA-005 🇰🇿 KZ · Almaty · 8ms</li></ol>
+    <h2>Топ-5 рабочих с минимальным пингом</h2>
+    <ol><li data-i="01.">LIMA-001 🇺🇸 US · 22ms</li><li data-i="02.">LIMA-002 🇺🇸 US · 29ms</li><li data-i="03.">LIMA-003 🇺🇸 US · 33ms</li><li data-i="04.">LIMA-004 🇺🇸 US · 35ms</li><li data-i="05.">LIMA-005 🇺🇸 US · 35ms</li></ol>
   </section>
 
   <details class="sources">
     <summary>Источники (67)</summary>
-    <table><tr><td>igareck/BLACK_VLESS_RUS</td><td>71</td><td class="fail">ok (+71 new)</td></tr><tr><td>igareck/BLACK_VLESS_RUS_mobile</td><td>83</td><td class="fail">ok (+14 new)</td></tr><tr><td>igareck/Vless-Reality-WL-Mobile</td><td>22</td><td class="fail">ok (+22 new)</td></tr><tr><td>igareck/Vless-Reality-WL-Mobile-2</td><td>0</td><td class="fail">ok (+0 new)</td></tr><tr><td>igareck/BLACK_SS+All_RUS</td><td>14</td><td class="fail">ok (+0 new)</td></tr><tr><td>AvenCores/1</td><td>9 362</td><td class="fail">ok (+9351 new)</td></tr><tr><td>AvenCores/2</td><td>73 379</td><td class="fail">ok (+50232 new)</td></tr><tr><td>AvenCores/3</td><td>8 627</td><td class="fail">ok (+5818 new)</td></tr><tr><td>AvenCores/4</td><td>227</td><td class="fail">ok (+81 new)</td></tr><tr><td>AvenCores/5</td><td>958</td><td class="fail">ok (+112 new)</td></tr><tr><td>AvenCores/6</td><td>145</td><td class="fail">ok (+63 new)</td></tr><tr><td>AvenCores/7</td><td>246</td><td class="fail">ok (+182 new)</td></tr><tr><td>AvenCores/8</td><td>321</td><td class="fail">ok (+311 new)</td></tr><tr><td>AvenCores/9</td><td>293</td><td class="fail">ok (+1 new)</td></tr><tr><td>AvenCores/10</td><td>4 639</td><td class="fail">ok (+117 new)</td></tr><tr><td>AvenCores/11</td><td>591</td><td class="fail">ok (+393 new)</td></tr><tr><td>AvenCores/12</td><td>2 960</td><td class="fail">ok (+1275 new)</td></tr><tr><td>AvenCores/13</td><td>74</td><td class="fail">ok (+10 new)</td></tr><tr><td>AvenCores/14</td><td>819</td><td class="fail">ok (+150 new)</td></tr><tr><td>AvenCores/15</td><td>235</td><td class="fail">ok (+17 new)</td></tr><tr><td>AvenCores/16</td><td>10</td><td class="fail">ok (+0 new)</td></tr><tr><td>AvenCores/17</td><td>937</td><td class="fail">ok (+2 new)</td></tr><tr><td>AvenCores/18</td><td>426</td><td class="fail">ok (+416 new)</td></tr><tr><td>AvenCores/19</td><td>1 126</td><td class="fail">ok (+750 new)</td></tr><tr><td>AvenCores/20</td><td>1 914</td><td class="fail">ok (+1280 new)</td></tr><tr><td>AvenCores/21</td><td>1 298</td><td class="fail">ok (+953 new)</td></tr><tr><td>AvenCores/22</td><td>214</td><td class="fail">ok (+55 new)</td></tr><tr><td>AvenCores/23</td><td>46</td><td class="fail">ok (+17 new)</td></tr><tr><td>AvenCores/24</td><td>1 112</td><td class="fail">ok (+659 new)</td></tr><tr><td>AvenCores/25</td><td>146</td><td class="fail">ok (+1 new)</td></tr><tr><td>AvenCores/26</td><td>2 161</td><td class="fail">ok (+1123 new)</td></tr><tr><td>hiztin/sub</td><td>4 297</td><td class="fail">ok (+1321 new)</td></tr><tr><td>FLAT447/blacklist</td><td>0</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/whitelist</td><td>0</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-1</td><td>4 990</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-2</td><td>2 269</td><td class="fail">ok (+490 new)</td></tr><tr><td>FLAT447/mirror-3</td><td>4 137</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-4</td><td>209</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-5</td><td>624</td><td class="fail">ok (+3 new)</td></tr><tr><td>FLAT447/mirror-6</td><td>17</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-7</td><td>156</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-8</td><td>195</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-9</td><td>214</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-10</td><td>3 056</td><td class="fail">ok (+17 new)</td></tr><tr><td>FLAT447/mirror-11</td><td>570</td><td class="fail">ok (+40 new)</td></tr><tr><td>FLAT447/mirror-12</td><td>1 868</td><td class="fail">ok (+645 new)</td></tr><tr><td>FLAT447/mirror-13</td><td>1 109</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-14</td><td>726</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-15</td><td>141</td><td class="fail">ok (+29 new)</td></tr><tr><td>FLAT447/mirror-16</td><td>12</td><td class="fail">ok (+8 new)</td></tr><tr><td>FLAT447/mirror-17</td><td>170</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-18</td><td>3</td><td class="fail">ok (+2 new)</td></tr><tr><td>FLAT447/mirror-19</td><td>61</td><td class="fail">ok (+60 new)</td></tr><tr><td>FLAT447/mirror-20</td><td>1 343</td><td class="fail">ok (+21 new)</td></tr><tr><td>FLAT447/mirror-21</td><td>560</td><td class="fail">ok (+28 new)</td></tr><tr><td>FLAT447/mirror-22</td><td>4</td><td class="fail">ok (+3 new)</td></tr><tr><td>FLAT447/mirror-23</td><td>56</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-24</td><td>425</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-25</td><td>90</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-26</td><td>1 087</td><td class="fail">ok (+47 new)</td></tr><tr><td>luxxuria/ping_tested</td><td>241</td><td class="fail">ok (+219 new)</td></tr><tr><td>luxxuria/speed_tested</td><td>49</td><td class="fail">ok (+0 new)</td></tr><tr><td>luxxuria/top_600</td><td>49</td><td class="fail">ok (+0 new)</td></tr><tr><td>luxxuria/non_ru</td><td>49</td><td class="fail">ok (+0 new)</td></tr><tr><td>VAL41K/obhod_BL</td><td>645</td><td class="fail">ok (+344 new)</td></tr><tr><td>VAL41K/obhod_WL</td><td>2 695</td><td class="fail">ok (+841 new)</td></tr><tr><td>lm705/vless_alive</td><td>35</td><td class="fail">ok (+3 new)</td></tr></table>
+    <table><tr><td>igareck/BLACK_VLESS_RUS</td><td>87</td><td class="fail">ok (+87 new)</td></tr><tr><td>igareck/BLACK_VLESS_RUS_mobile</td><td>104</td><td class="fail">ok (+21 new)</td></tr><tr><td>igareck/Vless-Reality-WL-Mobile</td><td>33</td><td class="fail">ok (+31 new)</td></tr><tr><td>igareck/Vless-Reality-WL-Mobile-2</td><td>0</td><td class="fail">ok (+0 new)</td></tr><tr><td>igareck/BLACK_SS+All_RUS</td><td>22</td><td class="fail">ok (+1 new)</td></tr><tr><td>AvenCores/1</td><td>9 414</td><td class="fail">ok (+9390 new)</td></tr><tr><td>AvenCores/2</td><td>73 379</td><td class="fail">ok (+50309 new)</td></tr><tr><td>AvenCores/3</td><td>8 742</td><td class="fail">ok (+5829 new)</td></tr><tr><td>AvenCores/4</td><td>227</td><td class="fail">ok (+80 new)</td></tr><tr><td>AvenCores/5</td><td>950</td><td class="fail">ok (+129 new)</td></tr><tr><td>AvenCores/6</td><td>146</td><td class="fail">ok (+59 new)</td></tr><tr><td>AvenCores/7</td><td>246</td><td class="fail">ok (+182 new)</td></tr><tr><td>AvenCores/8</td><td>321</td><td class="fail">ok (+311 new)</td></tr><tr><td>AvenCores/9</td><td>293</td><td class="fail">ok (+1 new)</td></tr><tr><td>AvenCores/10</td><td>4 603</td><td class="fail">ok (+146 new)</td></tr><tr><td>AvenCores/11</td><td>630</td><td class="fail">ok (+400 new)</td></tr><tr><td>AvenCores/12</td><td>3 064</td><td class="fail">ok (+1271 new)</td></tr><tr><td>AvenCores/13</td><td>74</td><td class="fail">ok (+10 new)</td></tr><tr><td>AvenCores/14</td><td>880</td><td class="fail">ok (+202 new)</td></tr><tr><td>AvenCores/15</td><td>192</td><td class="fail">ok (+36 new)</td></tr><tr><td>AvenCores/16</td><td>12</td><td class="fail">ok (+5 new)</td></tr><tr><td>AvenCores/17</td><td>985</td><td class="fail">ok (+17 new)</td></tr><tr><td>AvenCores/18</td><td>426</td><td class="fail">ok (+416 new)</td></tr><tr><td>AvenCores/19</td><td>1 132</td><td class="fail">ok (+759 new)</td></tr><tr><td>AvenCores/20</td><td>1 914</td><td class="fail">ok (+1276 new)</td></tr><tr><td>AvenCores/21</td><td>1 298</td><td class="fail">ok (+955 new)</td></tr><tr><td>AvenCores/22</td><td>214</td><td class="fail">ok (+55 new)</td></tr><tr><td>AvenCores/23</td><td>66</td><td class="fail">ok (+23 new)</td></tr><tr><td>AvenCores/24</td><td>904</td><td class="fail">ok (+626 new)</td></tr><tr><td>AvenCores/25</td><td>137</td><td class="fail">ok (+21 new)</td></tr><tr><td>AvenCores/26</td><td>2 243</td><td class="fail">ok (+1167 new)</td></tr><tr><td>hiztin/sub</td><td>4 249</td><td class="fail">ok (+1184 new)</td></tr><tr><td>FLAT447/blacklist</td><td>0</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/whitelist</td><td>0</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-1</td><td>5 016</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-2</td><td>2 122</td><td class="fail">ok (+467 new)</td></tr><tr><td>FLAT447/mirror-3</td><td>4 129</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-4</td><td>209</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-5</td><td>619</td><td class="fail">ok (+24 new)</td></tr><tr><td>FLAT447/mirror-6</td><td>15</td><td class="fail">ok (+3 new)</td></tr><tr><td>FLAT447/mirror-7</td><td>162</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-8</td><td>195</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-9</td><td>228</td><td class="fail">ok (+30 new)</td></tr><tr><td>FLAT447/mirror-10</td><td>3 026</td><td class="fail">ok (+41 new)</td></tr><tr><td>FLAT447/mirror-11</td><td>584</td><td class="fail">ok (+54 new)</td></tr><tr><td>FLAT447/mirror-12</td><td>1 868</td><td class="fail">ok (+643 new)</td></tr><tr><td>FLAT447/mirror-13</td><td>1 105</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-14</td><td>766</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-15</td><td>165</td><td class="fail">ok (+54 new)</td></tr><tr><td>FLAT447/mirror-16</td><td>8</td><td class="fail">ok (+5 new)</td></tr><tr><td>FLAT447/mirror-17</td><td>171</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-18</td><td>3</td><td class="fail">ok (+1 new)</td></tr><tr><td>FLAT447/mirror-19</td><td>61</td><td class="fail">ok (+60 new)</td></tr><tr><td>FLAT447/mirror-20</td><td>1 343</td><td class="fail">ok (+21 new)</td></tr><tr><td>FLAT447/mirror-21</td><td>560</td><td class="fail">ok (+28 new)</td></tr><tr><td>FLAT447/mirror-22</td><td>35</td><td class="fail">ok (+31 new)</td></tr><tr><td>FLAT447/mirror-23</td><td>62</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-24</td><td>448</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-25</td><td>87</td><td class="fail">ok (+0 new)</td></tr><tr><td>FLAT447/mirror-26</td><td>1 182</td><td class="fail">ok (+180 new)</td></tr><tr><td>luxxuria/ping_tested</td><td>241</td><td class="fail">ok (+223 new)</td></tr><tr><td>luxxuria/speed_tested</td><td>49</td><td class="fail">ok (+0 new)</td></tr><tr><td>luxxuria/top_600</td><td>49</td><td class="fail">ok (+0 new)</td></tr><tr><td>luxxuria/non_ru</td><td>49</td><td class="fail">ok (+0 new)</td></tr><tr><td>VAL41K/obhod_BL</td><td>645</td><td class="fail">ok (+364 new)</td></tr><tr><td>VAL41K/obhod_WL</td><td>2 695</td><td class="fail">ok (+869 new)</td></tr><tr><td>lm705/vless_alive</td><td>5</td><td class="fail">ok (+0 new)</td></tr></table>
   </details>
 
   <footer>
